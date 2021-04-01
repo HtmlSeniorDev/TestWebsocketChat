@@ -4,16 +4,16 @@ import { useDispatch } from 'react-redux'
 import {socketOpenConnection, socketSend} from "../../store/slices/chatbox/actions";
 import { selectors, actions} from "../../store/slices/chatbox/reducer";
 
-const { getConnectionState } = actions;
+const { setConnectionState } = actions;
 const ChatBoxContainer = () => {
   const dispatch = useDispatch();
   const [message, setMessage] = React.useState();
   React.useEffect(()=> {
     dispatch(socketOpenConnection());
-    dispatch(getConnectionState(true));
+    dispatch(setConnectionState(true));
 
     return () => {
-      dispatch(getConnectionState(false))
+      dispatch(setConnectionState(false))
     }
   },[]);
 
