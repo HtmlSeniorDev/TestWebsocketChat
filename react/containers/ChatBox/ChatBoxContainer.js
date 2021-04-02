@@ -12,7 +12,7 @@ const {getMessages} = selectors;
 const ChatBoxContainer = () => {
   const dispatch = useDispatch();
   const messages = useSelector(getMessages)
-  const [message, setMessage] = useState();
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     /**
