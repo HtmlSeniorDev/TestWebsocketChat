@@ -4,7 +4,8 @@ import { createSelectors } from '../../../utils';
 import getters from './getters';
 import setters from './setters';
 
-const slice = 'chatbox';
+const slice = 'chatBox';
+const rootSlice = 'rootChatBox'
 
 const { reducer, actions } = createSlice({
   name: slice,
@@ -12,7 +13,7 @@ const { reducer, actions } = createSlice({
   reducers: setters,
 });
 
-const selectors = createSelectors(getters, slice);
+const selectors = createSelectors(getters, rootSlice);
 
 export {
   actions,

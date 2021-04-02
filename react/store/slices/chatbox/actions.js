@@ -1,28 +1,26 @@
-import { actions } from './reducer'
-import {connectToWebsocket, socketListener, socketSendData} from "../../../api/websocket";
-
-
-const { setMessages } = actions;
+import { connect, send } from '@giantmachines/redux-websocket';
 
 /**
- * Thunk middleware functions
+ * Middleware functions
  */
 
 /**
- *Get data from Websocket
+ *Get data from Websocket middleware
  * @returns {Function}
  */
-const socket = new WebSocket("ws://skade.cc:38080");
-
 export const socketOpenConnection = () => async (dispatch) => {
-  socket.onmessage = function (event) {
-    dispatch(setMessages(event.data));
-  }
+  /**
+   * (connect) Allows automatic reconnect after closed socket
+   */
+  dispatch(connect('ws://skade.cc:38080'));
 };
-
+/**
+ * @param message {string}
+ * @returns {(function(*): Promise<void>)|*}
+ */
 export const socketSend = (message) => async (dispatch) => {
-    socket.send(JSON.stringify({
+    dispatch(send(JSON.stringify({
       name:'mr верстальщик',
       message:message
-    }));
+    })));
 };

@@ -1,14 +1,18 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import ChatBox from "../../components/ChatBox";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {socketOpenConnection, socketSend} from "../../store/slices/chatbox/actions";
-import { selectors, actions} from "../../store/slices/chatbox/reducer";
+import { selectors, actions } from "../../store/slices/chatbox/reducer";
 
-const { setConnectionState } = actions;
+const { setConnectionState, setMessages } = actions;
+const { getMessages } = selectors;
+
 const ChatBoxContainer = () => {
   const dispatch = useDispatch();
-  const [message, setMessage] = React.useState();
-  React.useEffect(()=> {
+  const messages = useSelector(getMessages)
+  const [message, setMessage] = useState();
+
+  useEffect(()=> {
     dispatch(socketOpenConnection());
     dispatch(setConnectionState(true));
 
@@ -19,16 +23,22 @@ const ChatBoxContainer = () => {
 
   const sendMessage = () => {
     dispatch(socketSend(message))
+    dispatch(setMessages(message))
   };
 
   const handleEdit = (message) => {
-    setMessage(message)
+    setMessage({
+      message,
+      name:'mr верстальщик',
+      own:true
+    })
   };
 
  return (
     <ChatBox
      handleSend={sendMessage}
      handleEdit={handleEdit}
+     messages={messages}
     />
   )
 };

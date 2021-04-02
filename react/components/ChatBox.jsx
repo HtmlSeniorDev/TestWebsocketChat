@@ -1,6 +1,7 @@
 import * as React from "react";
+import PropTypes from 'prop-types';
 
-export default function ChatBox({ handleSend, handleEdit }) {
+export default function ChatBox({ handleSend, handleEdit, messages }) {
   return (
     <div className="chat-box">
     <div className="chat-box__header">
@@ -12,41 +13,16 @@ export default function ChatBox({ handleSend, handleEdit }) {
       <div className="chat-box__separator">
         12 июля
       </div>
-      <div className="chat-box__message">
-        <div className="name">Служба поддержки</div>
-        <div className="message">
-          Добрый день, Дмитрий. <br/>Опишите вашу проблему более подробно. У вас возникли ошибки (баги) на сайте?
-          <div className="time">13:05</div>
-          <div className="clear"/>
+      {messages.map((item, index)=> (
+        <div className={`chat-box__message ${item?.own ? 'own' : 'message'}`} key={index}>
+          <div className="name">{item.name}</div>
+          <div className="message">
+            Добрый день, {item.name} <br/>{item.message}
+            <div className="time">13:05</div>
+            <div className="clear"/>
+          </div>
         </div>
-      </div>
-      <div className="clear"/>
-      <div className="chat-box__message own">
-        <div className="message">
-          Добрый день, Дмитрий. <br/>Опишите вашу проблему более подробно. У вас возникли ошибки (баги) на сайте?
-          <div className="time">13:05</div>
-          <div className="clear"/>
-        </div>
-      </div>
-      <div className="clear"/>
-      <div className="chat-box__message">
-        <div className="name">Служба поддержки</div>
-        <div className="message">
-          Добрый день, Дмитрий. <br/>Опишите вашу проблему более подробно. У вас возникли ошибки (баги) на сайте?
-          <div className="time">13:05</div>
-          <div className="clear"/>
-        </div>
-      </div>
-      <div className="clear"/>
-      <div className="chat-box__message own">
-        <div className="message">
-          Добрый день, Дмитрий. <br/>Опишите вашу проблему более подробно. У вас возникли ошибки (баги) на сайте?
-          <div className="time">13:05</div>
-          <div className="clear"/>
-        </div>
-
-      <div className="clear"/>
-    </div>
+      ))}
     </div>
     <div onSubmit={event => event.preventDefault()} className="chat-box__form main-form">
       <textarea onChange={(event)=> handleEdit(event.target.value)} className="input-style" rows="7"/>
@@ -62,3 +38,8 @@ export default function ChatBox({ handleSend, handleEdit }) {
   )
 }
 
+ChatBox.propTypes = {
+  messages: PropTypes.arrayOf(PropTypes.object).isRequired,
+  handleSend: PropTypes.func.isRequired,
+  handleEdit: PropTypes.func.isRequired,
+};

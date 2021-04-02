@@ -10,6 +10,7 @@ const setMessages = (state = defaultState, action) => ({
   messages: [...state.messages, action.payload],
 });
 
+
 export default {
   setConnectionState,
   setMessages
