@@ -7,7 +7,7 @@ export default function ChatBox({ handleSend, handleEdit, messages, inputMessage
     <div className="chat-box__header">
       <a href="#" className="back"><i className="icon icon-left"/></a>
       <h1 className="main-title">Добро пожаловать в онлаин-чат службы поддержки</h1>
-      <div stlyes={{width:'12px'}}/>
+      <div style={{width:'12px'}}/>
     </div>
     <div className="chat-box__messages">
       <div className="chat-box__separator">
@@ -46,5 +46,4 @@ ChatBox.propTypes = {
   inputMessage: PropTypes.string.isRequired,
   handleSend: PropTypes.func.isRequired,
   handleEdit: PropTypes.func.isRequired,
-
 };
