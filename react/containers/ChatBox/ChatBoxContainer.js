@@ -1,44 +1,62 @@
-import React, { useState, useEffect } from 'react'
+import React, {useState, useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {disconnect} from '@giantmachines/redux-websocket';
 import ChatBox from "../../components/ChatBox";
-import { useDispatch, useSelector } from 'react-redux'
 import {socketOpenConnection, socketSend} from "../../store/slices/chatbox/actions";
-import { selectors, actions } from "../../store/slices/chatbox/reducer";
+import {selectors, actions} from "../../store/slices/chatbox/reducer";
+import config from "../../../config";
 
-const { setConnectionState, setMessages } = actions;
-const { getMessages } = selectors;
+const {setConnectionState, setMessages} = actions;
+const {getMessages} = selectors;
 
 const ChatBoxContainer = () => {
   const dispatch = useDispatch();
   const messages = useSelector(getMessages)
   const [message, setMessage] = useState();
 
-  useEffect(()=> {
+  useEffect(() => {
+    /**
+     * Connect to websocket
+     */
     dispatch(socketOpenConnection());
     dispatch(setConnectionState(true));
 
     return () => {
+      /**
+       * Disconnecting after unmount
+       */
+      dispatch(disconnect())
       dispatch(setConnectionState(false))
     }
-  },[]);
+  }, []);
 
   const sendMessage = () => {
     dispatch(socketSend(message))
-    dispatch(setMessages(message))
-  };
-
-  const handleEdit = (message) => {
-    setMessage({
+    dispatch(setMessages({
       message,
-      name:'mr верстальщик',
+      name:config.username,
       own:true
     })
+    )
+    /**
+     * clean input after sending
+     */
+    setMessage('')
+  };
+  /**
+   * Change input state
+   * @param message  {string}
+   */
+  const handleEdit = (message) => {
+    setMessage(message)
   };
 
- return (
+  return (
     <ChatBox
-     handleSend={sendMessage}
-     handleEdit={handleEdit}
-     messages={messages}
+      handleSend={sendMessage}
+      handleEdit={handleEdit}
+      messages={messages}
+      inputMessage={message}
     />
   )
 };

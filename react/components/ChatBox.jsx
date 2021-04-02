@@ -1,7 +1,7 @@
 import * as React from "react";
 import PropTypes from 'prop-types';
 
-export default function ChatBox({ handleSend, handleEdit, messages }) {
+export default function ChatBox({ handleSend, handleEdit, messages, inputMessage }) {
   return (
     <div className="chat-box">
     <div className="chat-box__header">
@@ -14,18 +14,21 @@ export default function ChatBox({ handleSend, handleEdit, messages }) {
         12 июля
       </div>
       {messages.map((item, index)=> (
+        <>
         <div className={`chat-box__message ${item?.own ? 'own' : 'message'}`} key={index}>
-          <div className="name">{item.name}</div>
+          {
+            !item?.own && <div className="name">Cлужба поддержки</div>
+          }
           <div className="message">
-            Добрый день, {item.name} <br/>{item.message}
+          <br/>{item.message}
             <div className="time">13:05</div>
-            <div className="clear"/>
           </div>
         </div>
-      ))}
+        <div className="clear"/>
+        </>))}
     </div>
     <div onSubmit={event => event.preventDefault()} className="chat-box__form main-form">
-      <textarea onChange={(event)=> handleEdit(event.target.value)} className="input-style" rows="7"/>
+      <textarea value={inputMessage} onChange={(event)=> handleEdit(event.target.value)} className="input-style" rows="7"/>
       <div className="row">
         <label className="main-form__item file-field">
         </label>
@@ -40,6 +43,8 @@ export default function ChatBox({ handleSend, handleEdit, messages }) {
 
 ChatBox.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.object).isRequired,
+  inputMessage: PropTypes.string.isRequired,
   handleSend: PropTypes.func.isRequired,
   handleEdit: PropTypes.func.isRequired,
+
 };

@@ -2224,6 +2224,8 @@ a:hover {
 .chat-box__messages {
   min-height: 500px;
   margin-bottom: 40px;
+  max-height: 600px;
+  overflow-y: auto;
 }
 
 .chat-box__separator {

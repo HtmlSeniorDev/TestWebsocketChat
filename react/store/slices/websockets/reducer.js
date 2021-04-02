@@ -9,7 +9,7 @@ export default function WebsocketReducer(state = defaultState, action) {
     case actionTypes.message:
       return {
         ...state,
-        messages: [...state.messages, action.payload.message]
+        messages: [...state.messages, JSON.parse(action.payload.message)]
       }
     case actionTypes.close:
       return {
