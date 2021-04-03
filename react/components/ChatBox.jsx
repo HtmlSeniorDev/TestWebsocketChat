@@ -15,7 +15,7 @@ export default function ChatBox({ handleSend, handleEdit, messages, inputMessage
       </div>
       {messages.map((item, index)=> (
         <>
-        <div className={`chat-box__message ${item?.own ? 'own' : 'message'}`} key={index}>
+        <div className={`chat-box__message ${item?.own ? 'own' : 'message'}`} key={item + index}>
           {
             !item?.own && <div className="name">Cлужба поддержки</div>
           }
@@ -27,7 +27,7 @@ export default function ChatBox({ handleSend, handleEdit, messages, inputMessage
         <div className="clear"/>
         </>))}
     </div>
-    <div onSubmit={event => event.preventDefault()} className="chat-box__form main-form">
+    <form onSubmit={event => event.preventDefault()} className="chat-box__form main-form">
       <textarea value={inputMessage} onChange={(event)=> handleEdit(event.target.value)} className="input-style" rows="7"/>
       <div className="row">
         <label className="main-form__item file-field">
@@ -36,7 +36,7 @@ export default function ChatBox({ handleSend, handleEdit, messages, inputMessage
           <button onClick={()=> handleSend()} className="radius-button standart rounded">Отправить</button>
         </div>
       </div>
-    </div>
+    </form>
   </div>
   )
 }
