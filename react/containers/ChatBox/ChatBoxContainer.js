@@ -7,28 +7,29 @@ import {selectors, actions} from "../../store/slices/chatbox/reducer";
 import config from "../../../config";
 
 const {setConnectionState, setMessages} = actions;
-const {getMessages} = selectors;
+const {getMessages, getConnectionState} = selectors;
 
 const ChatBoxContainer = () => {
   const dispatch = useDispatch();
   const messages = useSelector(getMessages)
+  const isConnected = useSelector(getConnectionState)
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    /**
+    /*
      * Connect to websocket
      */
     dispatch(socketOpenConnection());
     dispatch(setConnectionState(true));
 
     return () => {
-      /**
+      /*
        * Disconnecting after unmount
        */
       dispatch(disconnect())
       dispatch(setConnectionState(false))
     }
-  }, []);
+  }, [isConnected]);
 
   const sendMessage = () => {
     dispatch(socketSend(message))

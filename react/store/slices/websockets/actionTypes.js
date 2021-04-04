@@ -4,7 +4,8 @@ const actionTypes = Object.freeze({
     send:'REDUX_WEBSOCKET::SEND',
     message:'REDUX_WEBSOCKET::MESSAGE',
     error:'REDUX_WEBSOCKET::ERROR',
-    close:'REDUX_WEBSOCKET::CLOSED'
+    close:'REDUX_WEBSOCKET::CLOSED',
+    disconnect:'REDUX_WEBSOCKET::DISCONNECT'
 });
 
 export default actionTypes;

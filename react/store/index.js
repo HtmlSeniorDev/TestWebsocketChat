@@ -22,6 +22,7 @@ export default function makeStore() {
           actionTypes.open,
           actionTypes.error,
           actionTypes.close,
+          actionTypes.disconnect
         ],
         // Ignore these field paths in all actions
         ignoredActionPaths: ['meta.arg', 'payload.timestamp'],
