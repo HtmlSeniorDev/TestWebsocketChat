@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import {disconnect} from '@giantmachines/redux-websocket';
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { disconnect } from '@giantmachines/redux-websocket';
 import ChatBox from "../../components/ChatBox";
-import {socketOpenConnection, socketSend} from "../../store/slices/chatbox/actions";
-import {selectors, actions} from "../../store/slices/chatbox/reducer";
+import { socketOpenConnection, socketSend } from "../../store/slices/chatbox/actions";
+import { selectors, actions } from "../../store/slices/chatbox/reducer";
 import config from "../../../config";
 
 const {setConnectionState, setMessages} = actions;

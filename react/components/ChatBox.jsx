@@ -25,7 +25,7 @@ export default function ChatBox({ handleSend, handleEdit, messages, inputMessage
           </div>
         </div>
         <div className="clear"/>
-        </>))}
+        </>))} 
     </div>
     <form onSubmit={event => event.preventDefault()} className="chat-box__form main-form">
       <textarea value={inputMessage} onChange={(event)=> handleEdit(event.target.value)} className="input-style" rows="7"/>
